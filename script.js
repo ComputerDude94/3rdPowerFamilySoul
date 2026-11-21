@@ -128,8 +128,19 @@
   $("community-list").innerHTML = B.community.map((c) => `<li><span>${esc(c)}</span></li>`).join("");
 
   // ---- members, faq, contact
-  $("members").innerHTML = B.members.map((m, i) => `<li class="reveal d${i % 4}"><div class="avatar">${esc(m.name.trim()[0])}</div><b>${esc(m.name)}</b>${m.nick ? `<em class="nick">“${esc(m.nick)}”</em>` : ""}<span>${esc(m.role)}</span>${m.bio ? `<details><summary>Read bio</summary><p>${esc(m.bio)}</p>${m.quote ? `<blockquote>“${esc(m.quote)}”</blockquote>` : ""}</details>` : ""}</li>`).join("");
-  $("members").addEventListener("toggle", (e) => { const li = e.target.closest("li"); if (li) li.classList.toggle("wide", e.target.open); }, true);
+  $("members").innerHTML = B.members.map((m, i) => `<li class="reveal d${i % 4}"><button type="button" class="member" data-i="${i}" aria-haspopup="dialog"><span class="avatar" aria-hidden="true">${esc(m.name.trim()[0])}</span><b>${esc(m.name)}</b>${m.nick ? `<span class="nick">“${esc(m.nick)}”</span>` : ""}<span class="role">${esc(m.role)}</span>${m.bio ? `<span class="more">View bio</span>` : ""}</button></li>`).join("");
+  const mm = $("member-modal"); let mmFocus = null;
+  const closeMm = () => { mm.hidden = true; document.body.classList.remove("modal-open"); if (mmFocus) mmFocus.focus(); };
+  $("members").addEventListener("click", (e) => {
+    const b = e.target.closest(".member"); if (!b) return; const m = B.members[+b.dataset.i]; if (!m.bio) return;
+    mmFocus = b; $("mm-av").textContent = m.name.trim()[0]; $("mm-name").textContent = m.name;
+    $("mm-nick").textContent = m.nick ? `“${m.nick}”` : ""; $("mm-nick").hidden = !m.nick;
+    $("mm-role").textContent = m.role; $("mm-bio").textContent = m.bio;
+    $("mm-quote").textContent = m.quote ? `“${m.quote}”` : ""; $("mm-quote").hidden = !m.quote;
+    mm.hidden = false; document.body.classList.add("modal-open"); mm.querySelector(".modal-x").focus();
+  });
+  mm.addEventListener("click", (e) => { if (e.target === mm || e.target.closest(".modal-x")) closeMm(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !mm.hidden) closeMm(); });
   $("faq-list").innerHTML = B.faq.map((f) => `<details class="reveal"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
   $("book-contact").innerHTML = `<li>✉ <a href="mailto:${B.email}">${esc(B.email)}</a></li><li>☎ <a href="tel:${B.phone.replace(/\D/g, "")}">${esc(B.phone)}</a></li><li>⌖ Lancaster, PA</li>`;
   $("contact").innerHTML = `<a href="${B.facebook}" target="_blank" rel="noopener">Facebook</a><a href="${B.facebook2}" target="_blank" rel="noopener">Events</a><a href="${B.youtube}" target="_blank" rel="noopener">YouTube</a><a href="tel:${B.phone.replace(/\D/g, "")}">${esc(B.phone)}</a>`;
