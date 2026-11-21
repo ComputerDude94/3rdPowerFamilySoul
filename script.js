@@ -13,7 +13,7 @@
 
   const showsByDate = {}; B.shows.forEach((s) => (showsByDate[s.date] = s));
   const open = new Set(B.openDates), booked = new Set(B.bookedDates);
-  const statusOf = (k) => (showsByDate[k] ? "show" : booked.has(k) ? "booked" : open.has(k) ? "open" : "");
+  const statusOf = (k) => (showsByDate[k] ? "show" : booked.has(k) ? "booked" : open.has(k) || (B.openByDefault && k >= todayKey) ? "open" : "");
 
   // ---- hero / text
   $("hero-lead").textContent = "Funk, soul, R&B, jazz, rock & disco — live, interactive and built to fill the dance floor in Lancaster County and beyond.";
@@ -35,16 +35,16 @@
 
   // ---- shows
   function ics(s) {
-    const d = s.date.replace(/-/g, "");
-    const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `DTSTART;VALUE=DATE:${d}`, `SUMMARY:3rd Power Family Soul @ ${s.venue}`, `LOCATION:${s.venue}, ${s.city}`, `DESCRIPTION:${s.time}${s.note ? " - " + s.note : ""}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    const d = s.date.replace(/-/g, ""), st = (s.start || "00:00").replace(":", "") + "00", en = (s.end || "23:59").replace(":", "") + "00";
+    const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `DTSTART:${d}T${st}`, `DTEND:${d}T${en}`, `SUMMARY:3rd Power Family Soul @ ${s.venue}`, `LOCATION:${s.venue}${s.city ? ", " + s.city : ", PA"}`, `DESCRIPTION:${s.time}${s.note ? " - " + s.note : ""}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     return "data:text/calendar;charset=utf-8," + encodeURIComponent(body);
   }
   $("show-list").innerHTML = upcoming.length
     ? upcoming.map((s) => {
         const d = parse(s.date);
-        const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.venue + " " + s.city);
+        const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.venue + " " + (s.city || "PA"));
         return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b></div>
-          <div><h4>${esc(s.venue)}</h4><p>${DAYS[d.getDay()]} · ${esc(s.time)} · ${esc(s.city)}${s.note ? " · " + esc(s.note) : ""}</p></div>
+          <div><h4>${esc(s.venue)}</h4><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
           <div class="show-actions"><a class="pill" href="${map}" target="_blank" rel="noopener">Directions</a><a class="pill" href="${ics(s)}" download="3rd-power-${s.date}.ics">+ Calendar</a></div></article>`;
       }).join("")
     : "<p class='sub'>New shows coming soon — follow us on Facebook for updates.</p>";
@@ -69,7 +69,7 @@
     const b = e.target.closest(".day"); if (!b || b.classList.contains("past")) return;
     const k = b.dataset.k, st = statusOf(k);
     if (st === "open") { selected = k; $("date").value = k; checkDate(); $("pick").innerHTML = `<b>${pretty(k)}</b> is open. Tap “Request This Date” to book it.`; render(); }
-    else if (st === "show") { const s = showsByDate[k]; $("pick").innerHTML = `<b>${pretty(k)}</b> — we're playing ${esc(s.venue)}, ${esc(s.city)} at ${esc(s.time)}. Come see us!`; }
+    else if (st === "show") { const s = showsByDate[k]; $("pick").innerHTML = `<b>${pretty(k)}</b> — we're playing ${esc(s.venue)}${s.city ? ", " + esc(s.city) : ""}, ${esc(s.time)}. Come see us!`; }
   });
   render();
 
@@ -126,7 +126,7 @@
     const k = $("date").value, s = $("date-status"), st = statusOf(k);
     s.className = "status";
     if (!k) { s.textContent = ""; return; }
-    if (st === "open") { s.textContent = "✓ Great news — this date is open!"; s.classList.add("ok"); }
+    if (st === "open") { s.textContent = "✓ Looks open! Send your request and we'll confirm."; s.classList.add("ok"); }
     else if (st === "booked" || st === "show") { s.textContent = "That date is taken — pick another, or send it and we'll suggest options."; s.classList.add("bad"); }
     else s.textContent = "Not marked open yet — send your request and we'll confirm.";
   }
@@ -164,8 +164,8 @@
     const ld = document.createElement("script"); ld.type = "application/ld+json";
     ld.textContent = JSON.stringify(upcoming.map((s) => ({
       "@context": "https://schema.org", "@type": "MusicEvent", name: "3rd Power Family Soul live at " + s.venue,
-      startDate: s.date, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      location: { "@type": "Place", name: s.venue, address: { "@type": "PostalAddress", addressLocality: s.city } },
+      startDate: s.date + (s.start ? "T" + s.start : ""), endDate: s.end ? s.date + "T" + s.end : undefined, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      location: { "@type": "Place", name: s.venue, address: { "@type": "PostalAddress", addressLocality: s.city || undefined, addressRegion: "PA", addressCountry: "US" } },
       performer: { "@type": "MusicGroup", name: "3rd Power Family Soul" }
     })));
     document.head.appendChild(ld);

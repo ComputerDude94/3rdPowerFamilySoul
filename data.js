@@ -6,7 +6,7 @@ window.BAND = {
   name: "3rd Power Family Soul",
   tagline: "Lancaster, PA's feel-good soul band",
   about:
-    "3rd Power Family Soul is a high-energy, interactive cover band from Lancaster, PA. They play feel-good funk, soul, R&B, jazz, rock 'n' roll and disco — from Kool & the Gang and James Brown to Chaka Khan, Parliament Funkadelic and The Rolling Stones — with lively crowd participation and spirited performances. Regulars around Lancaster County, including Honey Brook's Concerts in the Park, Dirty Ol' Tavern, Stoner Grille and McCleary's Public House.",
+    "3rd Power Family Soul is a high-energy, interactive cover band from Lancaster, PA. They play feel-good funk, soul, R&B, jazz, rock 'n' roll and disco — from Kool & the Gang and James Brown to Chaka Khan, Parliament Funkadelic and The Rolling Stones — with lively crowd participation and spirited performances. Regulars around Lancaster County, including Honey Brook's Concerts in the Park, Ole Dirty Tavern, Stoner Grille and McCleary's Public House.",
   // Where booking requests are emailed. REPLACE with the band's real email.
   email: "booking@example.com" /* TODO: your message was cut off before the email — replace */,
   phone: "(717) 598-5441",
@@ -50,19 +50,20 @@ window.BAND = {
   ],
   // Public shows — where to see them. Date format YYYY-MM-DD.
   shows: [
-    { date: "2026-12-05", time: "8:00 PM", venue: "PLACEHOLDER Venue", city: "Lancaster, PA", note: "Public show" },
-    { date: "2026-12-19", time: "9:00 PM", venue: "PLACEHOLDER Venue", city: "Lancaster, PA", note: "Holiday party" },
-    { date: "2026-12-31", time: "9:30 PM", venue: "PLACEHOLDER Venue", city: "Lancaster, PA", note: "New Year's Eve" },
-    { date: "2027-01-16", time: "8:00 PM", venue: "PLACEHOLDER Venue", city: "Lititz, PA", note: "Public show" }
+    { date: "2027-01-22", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", note: "" },
+    { date: "2027-03-05", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "", note: "" },
+    { date: "2027-03-27", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Ole Dirty Tavern", city: "", note: "" },
+    { date: "2027-06-12", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", note: "" },
+    { date: "2027-06-19", start: "18:00", end: "21:30", time: "6:00 – 9:30 PM", venue: "Marion Court", city: "", note: "" },
+    { date: "2027-07-24", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Ole Dirty Tavern", city: "", note: "" },
+    { date: "2027-09-18", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", note: "" },
+    { date: "2027-10-23", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Ole Dirty Tavern", city: "", note: "" },
+    { date: "2027-11-19", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "", note: "" },
+    { date: "2027-12-17", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", note: "" }
   ],
-  // Dates marked OPEN for booking. Any date not listed here or in shows
-  // is treated as "ask us" (not shown as open).
-  openDates: [
-    "2026-11-28", "2026-12-12", "2026-12-26",
-    "2027-01-02", "2027-01-09", "2027-01-23", "2027-01-30",
-    "2027-02-06", "2027-02-13", "2027-02-20", "2027-02-27",
-    "2027-03-06", "2027-03-13", "2027-03-20", "2027-03-27"
-  ],
+  // With openByDefault true, every future date except shows/booked dates shows as open.
+  openByDefault: true, // any future date that is not a show or listed in bookedDates can be requested
+  openDates: [],
   // Dates already taken by private events (shown as "Booked", no details).
-  bookedDates: ["2026-12-04", "2026-12-18", "2027-01-15"]
+  bookedDates: [] // add private-event dates here as "YYYY-MM-DD" so they show as Booked
 };
