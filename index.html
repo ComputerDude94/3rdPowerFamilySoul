@@ -15,6 +15,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://3rd-power-family-soul.thetoptenfotography.workers.dev/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
@@ -33,12 +34,13 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#shows">Skip to content</a>
+  <a class="skip" href="#top">Skip to content</a>
+  <noscript><div class="nojs">This site needs JavaScript to show the schedule. Call <a href="tel:7175985441">(717) 598-5441</a> or find 3rd Power Family Soul on <a href="https://www.facebook.com/share/1FxFtpkFde/">Facebook</a> for dates and booking.</div></noscript>
   <div class="progress" id="progress"></div>
 
   <header class="nav" id="nav">
     <a href="#top" class="logo">3rd Power <span>Family Soul</span></a>
-    <button class="menu-btn" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+    <button class="menu-btn" aria-label="Menu" aria-controls="menu" aria-expanded="false"><i></i><i></i></button>
     <nav id="menu">
       <a href="#shows">Shows</a>
       <a href="#calendar">Open Dates</a>
@@ -48,7 +50,7 @@
     </nav>
   </header>
 
-  <main id="top">
+  <main id="top" tabindex="-1">
     <!-- HERO -->
     <section class="hero">
       <div class="glow g1"></div><div class="glow g2"></div>
@@ -82,6 +84,7 @@
     <section id="shows" class="sec wrap">
       <div class="head reveal"><p class="eyebrow">On Stage</p><h2>Catch Us Live</h2></div>
       <div id="show-list" class="show-list"></div>
+      <p class="follow reveal">Never miss a show — <a id="follow-fb" target="_blank" rel="noopener">follow us on Facebook</a> · <a id="follow-yt" target="_blank" rel="noopener">watch on YouTube</a></p>
     </section>
 
     <!-- WATCH -->
@@ -123,7 +126,6 @@
     <!-- SOUND -->
     <section id="sound" class="sec wrap">
       <div class="head reveal"><p class="eyebrow">The Sound</p><h2>Grooves You Know &amp; Love</h2></div>
-      <div class="chips reveal" id="genres"></div>
       <div class="types" id="types"></div>
     </section>
 
@@ -167,9 +169,9 @@
             <label>Details &amp; song requests<textarea name="message" rows="4" placeholder="Guest count, must-play songs, anything else..."></textarea></label>
           </div>
           <div class="step" data-step="3">
-            <label>Your name<input name="name" required></label>
-            <label>Email<input type="email" name="email" required></label>
-            <label>Phone<input type="tel" name="phone"></label>
+            <label>Your name<input name="name" autocomplete="name" required></label>
+            <label>Email<input type="email" name="email" autocomplete="email" inputmode="email" required></label>
+            <label>Phone<input type="tel" name="phone" autocomplete="tel" inputmode="tel"></label>
           </div>
           <div class="nav-btns">
             <button type="button" class="btn ghost" id="back" hidden>Back</button>
@@ -196,8 +198,8 @@
     <p class="copy">&copy; <span id="yr"></span> 3rd Power Family Soul</p>
   </footer>
 
-  <div class="quickbar"><a href="#" id="qcall" class="q">Call</a><a href="#" id="qtext" class="q">Text</a><a href="#book" class="q main">Book</a></div>
-  <div class="lightbox" id="lightbox" hidden><button aria-label="Close">&times;</button><img alt=""></div>
+  <nav class="quickbar" aria-label="Quick contact"><a href="#" id="qcall" class="q">Call</a><a href="#" id="qtext" class="q">Text</a><a href="#book" class="q main">Book</a></nav>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden><button aria-label="Close">&times;</button><img alt=""></div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

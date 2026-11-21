@@ -44,7 +44,7 @@
         const d = parse(s.date);
         const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.venue + " " + (s.city || "PA"));
         return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b></div>
-          <div><h4>${esc(s.venue)}</h4><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
+          <div><h3>${esc(s.venue)}</h3><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
           <div class="show-actions"><a class="pill" href="${map}" target="_blank" rel="noopener">Directions</a><a class="pill" href="${ics(s)}" download="3rd-power-${s.date}.ics">+ Calendar</a></div></article>`;
       }).join("")
     : "<p class='sub'>New shows coming soon — follow us on Facebook for updates.</p>";
@@ -59,7 +59,7 @@
     for (let i = 0; i < first; i++) h += '<span class="day empty"></span>';
     for (let d = 1; d <= n; d++) {
       const k = key(y, m, d), st = statusOf(k);
-      h += `<button type="button" class="day ${st}${k < todayKey ? " past" : ""}${k === todayKey ? " today" : ""}${k === selected ? " sel" : ""}" data-k="${k}" ${st === "open" || st === "show" ? "" : "tabindex='-1'"} aria-label="${pretty(k)}${st ? " " + st : ""}">${d}</button>`;
+      h += `<button type="button" class="day ${st}${k < todayKey ? " past" : ""}${k === todayKey ? " today" : ""}${k === selected ? " sel" : ""}" data-k="${k}" ${k < todayKey ? "disabled" : st === "open" || st === "show" ? "" : "tabindex='-1' aria-disabled='true'"} aria-label="${pretty(k)}${st ? " " + st : ""}">${d}</button>`;
     }
     $("cal-days").innerHTML = h;
     $("prev").disabled = view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
@@ -75,7 +75,6 @@
   render();
 
   // ---- sound
-  $("genres").innerHTML = B.genres.map((g) => `<span>${esc(g)}</span>`).join("");
   $("types").innerHTML = B.eventTypes.map((t, i) => `<div class="type reveal d${i % 4}"><i>${t.icon}</i><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>`).join("");
 
   // ---- gallery + lightbox
@@ -93,11 +92,16 @@
       b.outerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&rel=0&modestbranding=1" title="Band video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
     });
   }
-  $("gallery").innerHTML = B.photos.map((p, i) => `<figure class="reveal d${i % 3}"><img loading="lazy" src="${p.src}" alt="${esc(p.alt)}"></figure>`).join("");
+  $("gallery").className = "gallery " + (B.photos.length <= 2 ? "few" : "");
+  $("gallery").innerHTML = B.photos.map((p, i) => `<figure class="reveal d${i % 3}"><img loading="lazy" src="${p.src}" alt="${esc(p.alt)}"${p.w ? ` width="${p.w}" height="${p.h}"` : ""}></figure>`).join("");
   const lb = $("lightbox");
   $("gallery").addEventListener("click", (e) => { const im = e.target.closest("img"); if (!im) return; lb.querySelector("img").src = im.src; lb.hidden = false; });
   lb.addEventListener("click", () => (lb.hidden = true));
-  document.addEventListener("keydown", (e) => e.key === "Escape" && (lb.hidden = true));
+  let lastFocus = null;
+  const closeLb = () => { lb.hidden = true; if (lastFocus) lastFocus.focus(); };
+  $("gallery").addEventListener("click", () => { lastFocus = document.activeElement; lb.querySelector("button").focus(); });
+  lb.querySelector("button").addEventListener("click", closeLb);
+  document.addEventListener("keydown", (e) => { if (e.key !== "Escape") return; if (!lb.hidden) closeLb(); if ($("menu").classList.contains("open")) document.querySelector(".menu-btn").click(); });
 
   // ---- members, faq, contact
   $("members").innerHTML = B.members.map((m, i) => `<li class="reveal d${i % 4}"><div class="avatar">${esc(m.name.trim()[0])}</div><b>${esc(m.name)}</b><span>${esc(m.role)}</span></li>`).join("");
@@ -170,6 +174,7 @@
   const qb = document.querySelector(".quickbar"), hide = new Set();
   const qio = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? hide.add(e.target.id || "f") : hide.delete(e.target.id || "f"))); qb.classList.toggle("off", hide.size > 0); }, { threshold: 0, rootMargin: "-35% 0px -35% 0px" });
   qio.observe($("book")); qio.observe(document.querySelector("footer"));
+  $("follow-fb").href = B.facebook; $("follow-yt").href = B.youtube;
   $("qtext").href = "sms:" + tel;
   const sh = document.createElement("button"); sh.className = "share"; sh.textContent = "Share this page";
   sh.onclick = async () => {

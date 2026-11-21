@@ -43,7 +43,10 @@ window.BAND = {
   // PHOTOS: add real photos here. The photo section stays hidden until you do.
   // Best: one strong group photo (groupPhoto) + a few live shots (photos).
   groupPhoto: "",            // e.g. "images/band-group.jpg"
-  photos: [],                // e.g. [{ src: "images/live-1.jpg", alt: "Live at Stoner Grille" }]
+  photos: [
+    { src: "images/band-wall.jpg", alt: "The five members of 3rd Power Family Soul posing together against a stone wall", w: 493, h: 405 },
+    { src: "images/band-walking.jpg", alt: "3rd Power Family Soul walking toward the camera on a rooftop", w: 547, h: 365 }
+  ],
   // VIDEOS: paste the 11-character YouTube ID (the part after youtu.be/). Add up to 3.
   videos: [
     { id: "YeJzHs0a6GE", title: "3rd Power Family Soul — live" },
