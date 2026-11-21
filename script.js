@@ -39,16 +39,23 @@
     const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `DTSTART:${d}T${st}`, `DTEND:${d}T${en}`, `SUMMARY:3rd Power Family Soul @ ${s.venue}`, `LOCATION:${s.address || s.venue + (s.city ? ", " + s.city : ", PA")}`, `DESCRIPTION:${s.time}${s.note ? " - " + s.note : ""}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     return "data:text/calendar;charset=utf-8," + encodeURIComponent(body);
   }
+  const LIMIT = B.showLimit || 5;
   $("show-list").innerHTML = upcoming.length
     ? upcoming.map((s) => {
         const d = parse(s.date);
         const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.address ? s.venue + " " + s.address : s.venue + " " + (s.city || "PA"));
-        return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b><em>${d.getFullYear()}</em></div>
+        return `<article class="show-card reveal${upcoming.indexOf(s) >= LIMIT ? " extra" : ""}"${upcoming.indexOf(s) >= LIMIT ? " hidden" : ""}><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b><em>${d.getFullYear()}</em></div>
           <div><h3>${esc(s.venue)}</h3><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
           <div class="show-actions"><a class="pill" href="${map}" target="_blank" rel="noopener">Directions</a><a class="pill" href="${ics(s)}" download="3rd-power-${s.date}.ics">+ Calendar</a></div></article>`;
       }).join("")
     : "<p class='sub'>New shows coming soon — follow us on Facebook for updates.</p>";
 
+  if (upcoming.length > LIMIT) {
+    const mb = $("shows-more"); mb.hidden = false; mb.textContent = `Show all ${upcoming.length} shows`;
+    mb.onclick = () => { const open = mb.dataset.open !== "1"; mb.dataset.open = open ? "1" : "";
+      document.querySelectorAll(".show-card.extra").forEach((c) => { c.hidden = !open; if (open) c.classList.add("in"); });
+      mb.textContent = open ? "Show fewer shows" : `Show all ${upcoming.length} shows`; };
+  }
   const years = [...new Set(upcoming.map((x) => parse(x.date).getFullYear()))];
   if (upcoming.length && years.length <= 2) $("shows-title").textContent = years.join(" & ") + " Schedule";
   const evt = (x) => ["BEGIN:VEVENT", `UID:${x.date}-3rdpower@band`, `DTSTART:${x.date.replace(/-/g, "")}T${(x.start || "00:00").replace(":", "")}00`, `DTEND:${x.date.replace(/-/g, "")}T${(x.end || "23:59").replace(":", "")}00`, `SUMMARY:3rd Power Family Soul @ ${x.venue}`, `LOCATION:${x.address || x.venue + (x.city ? ", " + x.city : ", PA")}`, "END:VEVENT"].join("\r\n");
@@ -177,11 +184,18 @@
     e.preventDefault(); if (!valid()) return;
     const data = Object.fromEntries(new FormData(form)), msg = $("form-msg");
     if (B.formEndpoint) {
+      if (data._honey) return; // spam trap
+      const ctrl = new AbortController(), to = setTimeout(() => ctrl.abort(), 12000);
+      $("send").disabled = true; msg.className = "status"; msg.textContent = "Sending…";
       try {
-        const r = await fetch(B.formEndpoint, { method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        if (!r.ok) throw 0;
-        msg.className = "status ok"; msg.textContent = "Thank you! We'll be in touch very soon."; form.reset(); show(0); return;
-      } catch { msg.className = "status bad"; msg.textContent = "Couldn't send — please email or call us directly."; return; }
+        const payload = { name: data.name, email: data.email, phone: data.phone || "—", "event date": pretty(data.date), "event type": data.type, venue: data.venue || "—", "start time & length": data.time || "—", "details & song requests": data.message || "—",
+          _subject: `Booking request: ${data.name} — ${pretty(data.date)}`, _template: "table", _captcha: "false", _replyto: data.email };
+        if (data.email && data.email.toLowerCase() !== "eyates717@comcast.net") payload._cc = data.email;
+        const r = await fetch(B.formEndpoint, { method: "POST", headers: { Accept: "application/json", "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctrl.signal });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || j.success === "false" || j.success === false) throw new Error("send failed");
+        msg.className = "status ok"; msg.textContent = "Thank you! Your request was sent and a copy is on its way to your email. We'll be in touch soon."; form.reset(); show(0); $("send").disabled = false; clearTimeout(to); return;
+      } catch (err) { clearTimeout(to); $("send").disabled = false; msg.className = "status bad"; msg.textContent = "We couldn't send that automatically — opening your email app instead…"; }
     }
     const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join("\n");
     location.href = `mailto:${B.email}?subject=${encodeURIComponent("Booking request: " + data.date)}&body=${encodeURIComponent(body)}`;

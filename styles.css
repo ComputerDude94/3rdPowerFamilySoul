@@ -309,3 +309,8 @@ main:focus{outline:none}
 .members li.wide .avatar{margin-left:0}
 #community-list{list-style:none;padding:0;margin:1.6rem 0 0}
 #community-list li span{display:block;border:1px solid var(--line);padding:.6rem 1.3rem;border-radius:999px;font-family:var(--serif);font-size:1.2rem;background:#ffffff05}
+
+.shows-more{margin-top:1rem}
+.honey{position:absolute !important;left:-9999px;width:1px;height:1px;opacity:0}
+.hint{font-weight:400;color:var(--mute);font-size:.78rem;letter-spacing:0;margin-top:.1rem}
+[hidden]{display:none !important}

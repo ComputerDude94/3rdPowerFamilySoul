@@ -86,6 +86,7 @@
     <section id="shows" class="sec wrap">
       <div class="head reveal"><p class="eyebrow">On Stage</p><h2 id="shows-title">Catch Us Live</h2></div>
       <div id="show-list" class="show-list"></div>
+      <button type="button" id="shows-more" class="btn ghost shows-more" hidden>Show all shows</button>
       <p class="follow reveal"><a id="all-ics" class="pill">+ Add all shows to my calendar</a> Never miss a show — <a id="follow-fb" target="_blank" rel="noopener">follow us on Facebook</a> · <a id="follow-yt" target="_blank" rel="noopener">watch on YouTube</a></p>
     </section>
 
@@ -195,9 +196,10 @@
           </div>
           <div class="step" data-step="3">
             <label>Your name<input name="name" autocomplete="name" required></label>
-            <label>Email<input type="email" name="email" autocomplete="email" inputmode="email" required></label>
+            <label>Email<input type="email" name="email" autocomplete="email" inputmode="email" required><small class="hint">We'll send a copy of your request to this address.</small></label>
             <label>Phone<input type="tel" name="phone" autocomplete="tel" inputmode="tel"></label>
           </div>
+          <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="nav-btns">
             <button type="button" class="btn ghost" id="back" hidden>Back</button>
             <button type="button" class="btn" id="nextstep">Next</button>

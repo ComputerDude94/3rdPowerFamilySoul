@@ -12,8 +12,8 @@ window.BAND = {
   facebook: "https://www.facebook.com/share/1FxFtpkFde/",
   facebook2: "https://www.facebook.com/share/1NRHupTZME/",
   youtube: "https://www.youtube.com/results?search_query=3rd+Power+Family+Soul",
-  // Optional: paste a Formspree/Getform URL to receive booking requests by form instead of email.
-  formEndpoint: "",
+  // Booking requests are sent through FormSubmit.co to the band email (with a CC to the client). Set to "" to use the visitor's email app instead.
+  formEndpoint: "https://formsubmit.co/ajax/eyates717@comcast.net",
   genres: ["Funk", "Soul", "R&B", "Jazz", "Rock 'n' Roll", "Disco"],
   eventTypes: [
     { icon: "♥", title: "Weddings", text: "Keep the dance floor full from the first dance to the last song." },
@@ -62,18 +62,19 @@ window.BAND = {
     { src: "images/band-walking.jpg", alt: "3rd Power Family Soul walking toward the camera on a rooftop", w: 547, h: 365 }
   ],
   // SHOWS: date YYYY-MM-DD, start/end 24h, time = text shown, address optional (used for Directions).
+  showLimit: 5, // how many upcoming shows to list before "Show all" (the calendar always shows every date)
   shows: [
-    { date: "2026-12-12", start: "20:30", end: "22:45", time: "8:30 – 10:45 PM", venue: "Stoner Grille", city: "", address: "", note: "" },
-    { date: "2027-01-22", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", address: "", note: "" },
-    { date: "2027-03-05", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "", address: "", note: "" },
+    { date: "2026-12-12", start: "20:30", end: "22:45", time: "8:30 – 10:45 PM", venue: "Stoner Grille", city: "Lancaster, PA", address: "", note: "" },
+    { date: "2027-01-22", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "Lancaster, PA", address: "", note: "" },
+    { date: "2027-03-05", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "Lancaster, PA", address: "", note: "" },
     { date: "2027-03-27", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Dirty Ol' Tavern", city: "Lancaster, PA", address: "917 S Prince St, Lancaster, PA", note: "" },
-    { date: "2027-06-12", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", address: "", note: "" },
-    { date: "2027-06-19", start: "18:00", end: "21:30", time: "6:00 – 9:30 PM", venue: "Marion Court", city: "", address: "", note: "" },
+    { date: "2027-06-12", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "Lancaster, PA", address: "", note: "" },
+    { date: "2027-06-19", start: "18:00", end: "21:30", time: "6:00 – 9:30 PM", venue: "Marion Court", city: "Lancaster, PA", address: "", note: "" },
     { date: "2027-07-24", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Dirty Ol' Tavern", city: "Lancaster, PA", address: "917 S Prince St, Lancaster, PA", note: "" },
-    { date: "2027-09-18", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", address: "", note: "" },
+    { date: "2027-09-18", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "Lancaster, PA", address: "", note: "" },
     { date: "2027-10-23", start: "21:00", end: "23:00", time: "9:00 – 11:00 PM", venue: "Dirty Ol' Tavern", city: "Lancaster, PA", address: "917 S Prince St, Lancaster, PA", note: "" },
-    { date: "2027-11-19", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "", address: "", note: "" },
-    { date: "2027-12-17", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", address: "", note: "" }
+    { date: "2027-11-19", start: "17:30", end: "21:00", time: "5:30 – 9:00 PM", venue: "Marion Court", city: "Lancaster, PA", address: "", note: "" },
+    { date: "2027-12-17", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "Lancaster, PA", address: "", note: "" }
   ],
   openByDefault: true, // any future date that is not a show or in bookedDates can be requested
   openDates: [],
