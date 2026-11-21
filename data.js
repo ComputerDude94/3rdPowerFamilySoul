@@ -40,14 +40,18 @@ window.BAND = {
   ],
   // Photos: drop image files in /images and list them here.
   // Entries starting with "images/placeholder" are stand-ins.
-  photos: [
-    { src: "images/placeholder-1.svg", alt: "Band portrait" },
-    { src: "images/placeholder-2.svg", alt: "Live on stage" },
-    { src: "images/placeholder-3.svg", alt: "Crowd dancing" },
-    { src: "images/placeholder-4.svg", alt: "Group photo" },
-    { src: "images/placeholder-5.svg", alt: "Backstage" },
-    { src: "images/placeholder-6.svg", alt: "Soundcheck" }
+  // PHOTOS: add real photos here. The photo section stays hidden until you do.
+  // Best: one strong group photo (groupPhoto) + a few live shots (photos).
+  groupPhoto: "",            // e.g. "images/band-group.jpg"
+  photos: [],                // e.g. [{ src: "images/live-1.jpg", alt: "Live at Stoner Grille" }]
+  // VIDEOS: paste the 11-character YouTube ID (the part after youtu.be/). Add up to 3.
+  videos: [
+    { id: "YeJzHs0a6GE", title: "3rd Power Family Soul — live" },
+    { id: "QvDGFPohmMw", title: "3rd Power Family Soul — live" }
   ],
+  // A personal note from the band. Edit freely — shown in the Band section.
+  story: "3rd Power Family Soul was founded by bassist Mike Smith and brings together five musicians with one goal: get everybody on their feet. Diane Yates leads on vocals, Efrem Yates is on lead guitar, Bill Leporte is on keys and Derrick Wright keeps the groove on drums. Come say hello between sets — we love meeting the crowd.",
+  signoff: "Diane, Efrem, Mike, Bill & Derrick",
   // Public shows — where to see them. Date format YYYY-MM-DD.
   shows: [
     { date: "2027-01-22", start: "20:30", end: "23:00", time: "8:30 – 11:00 PM", venue: "Stoner Grille", city: "", note: "" },

@@ -42,8 +42,7 @@
     <nav id="menu">
       <a href="#shows">Shows</a>
       <a href="#calendar">Open Dates</a>
-      <a href="#sound">Sound</a>
-      <a href="#photos">Photos</a>
+      <a href="#watch" id="nav-watch">Watch</a>
       <a href="#band">Band</a>
       <a href="#book" class="btn small">Book Us</a>
     </nav>
@@ -79,18 +78,19 @@
     <!-- TICKER -->
     <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
 
-    <!-- STATS -->
-    <section class="stats wrap-wide">
-      <div class="stat reveal"><b data-count="5">0</b><span>Musicians</span></div>
-      <div class="stat reveal d1"><b data-count="6">0</b><span>Genres</span></div>
-      <div class="stat reveal d2"><b>LIVE</b><span>&amp; Interactive</span></div>
-      <div class="stat reveal d3"><b>PA</b><span>Lancaster County</span></div>
-    </section>
-
     <!-- SHOWS -->
     <section id="shows" class="sec wrap">
       <div class="head reveal"><p class="eyebrow">On Stage</p><h2>Catch Us Live</h2></div>
       <div id="show-list" class="show-list"></div>
+    </section>
+
+    <!-- WATCH -->
+    <section id="watch" class="sec alt" hidden>
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">See &amp; Hear Us</p><h2>Watch the Band</h2></div>
+        <div id="videos" class="videos"></div>
+        <p class="more reveal"><a id="yt-more" target="_blank" rel="noopener">More videos on YouTube &rarr;</a></p>
+      </div>
     </section>
 
     <!-- CALENDAR -->
@@ -127,18 +127,19 @@
       <div class="types" id="types"></div>
     </section>
 
-    <!-- PHOTOS -->
-    <section id="photos" class="sec alt">
-      <div class="wrap">
-        <div class="head reveal"><p class="eyebrow">Gallery</p><h2>Portraits</h2></div>
-        <div id="gallery" class="gallery"></div>
-      </div>
+
+    <!-- PHOTOS (hidden until real photos are added in data.js) -->
+    <section id="photos" class="sec wrap" hidden>
+      <div class="head reveal"><p class="eyebrow">On &amp; Off Stage</p><h2>Photos</h2></div>
+      <div id="gallery" class="gallery"></div>
     </section>
 
     <!-- BAND -->
     <section id="band" class="sec wrap">
       <div class="head reveal"><p class="eyebrow">Meet the Group</p><h2>The Band</h2></div>
+      <div id="group" class="group reveal" hidden></div>
       <p id="about-text" class="about reveal"></p>
+      <blockquote id="story" class="story reveal" hidden></blockquote>
       <ul id="members" class="members"></ul>
     </section>
 

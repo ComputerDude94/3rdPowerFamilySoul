@@ -79,6 +79,20 @@
   $("types").innerHTML = B.eventTypes.map((t, i) => `<div class="type reveal d${i % 4}"><i>${t.icon}</i><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>`).join("");
 
   // ---- gallery + lightbox
+  if (B.photos.length) { $("photos").hidden = false; $("nav-watch").insertAdjacentHTML("afterend", '<a href="#photos">Photos</a>'); }
+  if (B.groupPhoto) { $("group").hidden = false; $("group").innerHTML = `<img src="${B.groupPhoto}" alt="3rd Power Family Soul" loading="lazy">`; }
+  if (B.story) { const q = $("story"); q.hidden = false; q.innerHTML = `<p>${esc(B.story)}</p>${B.signoff ? `<footer>— ${esc(B.signoff)}</footer>` : ""}`; }
+  // videos (click-to-load: fast, and no tracking until played)
+  if (B.videos.length) {
+    $("watch").hidden = false;
+    $("videos").className = "videos n" + B.videos.length;
+    $("videos").innerHTML = B.videos.map((v, i) => `<figure class="video reveal d${i}"><button type="button" class="vbtn" data-id="${esc(v.id)}" aria-label="Play video: ${esc(v.title)}" style="background-image:url(https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg)"><span class="play"></span></button><figcaption>${esc(v.title)}</figcaption></figure>`).join("");
+    $("yt-more").href = B.youtube;
+    $("videos").addEventListener("click", (e) => {
+      const b = e.target.closest(".vbtn"); if (!b) return;
+      b.outerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${b.dataset.id}?autoplay=1&rel=0&modestbranding=1" title="Band video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`;
+    });
+  }
   $("gallery").innerHTML = B.photos.map((p, i) => `<figure class="reveal d${i % 3}"><img loading="lazy" src="${p.src}" alt="${esc(p.alt)}"></figure>`).join("");
   const lb = $("lightbox");
   $("gallery").addEventListener("click", (e) => { const im = e.target.closest("img"); if (!im) return; lb.querySelector("img").src = im.src; lb.hidden = false; });
