@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>3rd Power Family Soul | Live Funk &amp; Soul Band — Lancaster, PA</title>
-  <meta name="description" content="3rd Power Family Soul — high-energy funk, soul, R&B, jazz, rock and disco band from Lancaster, PA. See upcoming shows, check open dates and book the band.">
+  <title>3rd Power Family Soul | The Ultimate Dance Band — Lancaster, PA</title>
+  <meta name="description" content="3rd Power Family Soul — The Ultimate Dance Band from Lancaster, PA. Funk, soul, R&B, jazz, rock and disco: all the hits, all the time. See shows, check open dates and book the band.">
   <meta name="theme-color" content="#0b0c10">
   <meta property="og:title" content="3rd Power Family Soul — Lancaster, PA">
   <meta property="og:description" content="Live funk, soul &amp; disco. See shows, check open dates, book the band.">
@@ -21,8 +21,8 @@
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"MusicGroup","name":"3rd Power Family Soul","genre":["Funk","Soul","R&B","Jazz","Rock","Disco"],
-   "description":"High-energy, interactive cover band from Lancaster, PA playing funk, soul, R&B, jazz, rock and disco for weddings, festivals, venues and private events.",
-   "url":"https://3rd-power-family-soul.thetoptenfotography.workers.dev/","telephone":"+1-717-598-5441",
+   "description":"The Ultimate Dance Band — high-energy, interactive cover band from Lancaster, PA playing funk, soul, R&B, jazz, rock and disco for weddings, festivals, venues and private events.",
+   "url":"https://3rd-power-family-soul.thetoptenfotography.workers.dev/","telephone":"+1-717-598-5441","email":"eyates717@comcast.net","slogan":"Let's dance! All the hits! All the time!",
    "address":{"@type":"PostalAddress","addressLocality":"Lancaster","addressRegion":"PA","addressCountry":"US"},
    "areaServed":"Lancaster County, Pennsylvania",
    "sameAs":["https://www.facebook.com/share/1FxFtpkFde/","https://www.facebook.com/share/1NRHupTZME/"],
@@ -46,6 +46,7 @@
       <a href="#shows">Shows</a>
       <a href="#calendar">Calendar</a>
       <a href="#watch" id="nav-watch">Watch</a>
+      <a href="#songs">Songs</a>
       <a href="#band">Band</a>
       <a href="#book" class="btn small">Book Us</a>
     </nav>
@@ -57,9 +58,9 @@
       <div class="glow g1"></div><div class="glow g2"></div>
       <div class="hero-grid wrap-wide">
         <div class="hero-copy">
-          <p class="eyebrow reveal">Lancaster, Pennsylvania · Live Band</p>
+          <p class="eyebrow reveal">The Ultimate Dance Band · Lancaster, PA</p>
           <h1 class="reveal d1">Funk. Soul.<br><em>Family.</em></h1>
-          <p class="lead reveal d2" id="hero-lead">Funk, soul, R&amp;B, jazz, rock &amp; disco — live, interactive and built to fill the dance floor in Lancaster County and beyond.</p>
+          <p class="lead reveal d2" id="hero-lead">Let's dance! All the hits, all the time — funk, soul, R&amp;B, jazz, rock &amp; disco, live and interactive.</p>
           <div class="cta reveal d3">
             <a href="#book" class="btn">Book the Band</a>
             <a href="#shows" class="btn ghost">See Live Dates</a>
@@ -131,6 +132,22 @@
     </section>
 
 
+    <!-- SONGS -->
+    <section id="songs" class="sec alt">
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">The Setlist</p><h2>Songs We Play</h2>
+          <p class="sub">All the hits. Search to see if your favorite is on the list — and request it in the booking form.</p></div>
+        <div class="song-tools reveal">
+          <label class="visually-hidden" for="song-search">Search songs</label>
+          <input id="song-search" type="search" placeholder="Search songs…" autocomplete="off">
+          <span id="song-count" class="song-count" aria-live="polite"></span>
+        </div>
+        <div id="songs-list" class="songs collapsed"></div>
+        <button type="button" id="songs-more" class="btn ghost songs-more">Show all songs</button>
+        <p id="songs-note" class="fine"></p>
+      </div>
+    </section>
+
     <!-- PHOTOS (hidden until real photos are added in data.js) -->
     <section id="photos" class="sec wrap" hidden>
       <div class="head reveal"><p class="eyebrow">On &amp; Off Stage</p><h2>Photos</h2></div>
@@ -144,6 +161,13 @@
       <p id="about-text" class="about reveal"></p>
       <blockquote id="story" class="story reveal" hidden></blockquote>
       <ul id="members" class="members"></ul>
+    </section>
+
+    <!-- COMMUNITY -->
+    <section id="community" class="sec wrap">
+      <div class="head reveal"><p class="eyebrow">In Our Community</p><h2>Part of the Lancaster County Family</h2></div>
+      <p class="about reveal">We love playing for our neighbors — from campgrounds and veterans' posts to private parties and city celebrations.</p>
+      <ul id="community-list" class="chips"></ul>
     </section>
 
     <!-- BOOK -->

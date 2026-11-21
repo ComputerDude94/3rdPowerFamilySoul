@@ -20,7 +20,7 @@
   $("yr").textContent = today.getFullYear();
 
   // ---- ticker
-  const items = [...B.artists, ...B.genres];
+  const items = [B.slogan, ...B.songs.slice(0, 18), ...B.genres];
   const tk = items.map((t) => `<span>${esc(t)}</span>`).join("");
   $("ticker").innerHTML = tk + tk + tk + tk;
 
@@ -36,13 +36,13 @@
   // ---- shows
   function ics(s) {
     const d = s.date.replace(/-/g, ""), st = (s.start || "00:00").replace(":", "") + "00", en = (s.end || "23:59").replace(":", "") + "00";
-    const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `DTSTART:${d}T${st}`, `DTEND:${d}T${en}`, `SUMMARY:3rd Power Family Soul @ ${s.venue}`, `LOCATION:${s.venue}${s.city ? ", " + s.city : ", PA"}`, `DESCRIPTION:${s.time}${s.note ? " - " + s.note : ""}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    const body = ["BEGIN:VCALENDAR", "VERSION:2.0", "BEGIN:VEVENT", `DTSTART:${d}T${st}`, `DTEND:${d}T${en}`, `SUMMARY:3rd Power Family Soul @ ${s.venue}`, `LOCATION:${s.address || s.venue + (s.city ? ", " + s.city : ", PA")}`, `DESCRIPTION:${s.time}${s.note ? " - " + s.note : ""}`, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     return "data:text/calendar;charset=utf-8," + encodeURIComponent(body);
   }
   $("show-list").innerHTML = upcoming.length
     ? upcoming.map((s) => {
         const d = parse(s.date);
-        const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.venue + " " + (s.city || "PA"));
+        const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.address ? s.venue + " " + s.address : s.venue + " " + (s.city || "PA"));
         return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b><em>${d.getFullYear()}</em></div>
           <div><h3>${esc(s.venue)}</h3><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
           <div class="show-actions"><a class="pill" href="${map}" target="_blank" rel="noopener">Directions</a><a class="pill" href="${ics(s)}" download="3rd-power-${s.date}.ics">+ Calendar</a></div></article>`;
@@ -51,7 +51,7 @@
 
   const years = [...new Set(upcoming.map((x) => parse(x.date).getFullYear()))];
   if (upcoming.length && years.length <= 2) $("shows-title").textContent = years.join(" & ") + " Schedule";
-  const evt = (x) => ["BEGIN:VEVENT", `UID:${x.date}-3rdpower@band`, `DTSTART:${x.date.replace(/-/g, "")}T${(x.start || "00:00").replace(":", "")}00`, `DTEND:${x.date.replace(/-/g, "")}T${(x.end || "23:59").replace(":", "")}00`, `SUMMARY:3rd Power Family Soul @ ${x.venue}`, `LOCATION:${x.venue}${x.city ? ", " + x.city : ", PA"}`, "END:VEVENT"].join("\r\n");
+  const evt = (x) => ["BEGIN:VEVENT", `UID:${x.date}-3rdpower@band`, `DTSTART:${x.date.replace(/-/g, "")}T${(x.start || "00:00").replace(":", "")}00`, `DTEND:${x.date.replace(/-/g, "")}T${(x.end || "23:59").replace(":", "")}00`, `SUMMARY:3rd Power Family Soul @ ${x.venue}`, `LOCATION:${x.address || x.venue + (x.city ? ", " + x.city : ", PA")}`, "END:VEVENT"].join("\r\n");
   $("all-ics").href = "data:text/calendar;charset=utf-8," + encodeURIComponent("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//3rd Power Family Soul//EN\r\n" + upcoming.map(evt).join("\r\n") + "\r\nEND:VCALENDAR");
   $("all-ics").download = "3rd-power-family-soul-schedule.ics";
   if (!upcoming.length) $("all-ics").hidden = true;
@@ -85,7 +85,7 @@
   $("types").innerHTML = B.eventTypes.map((t, i) => `<div class="type reveal d${i % 4}"><i>${t.icon}</i><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>`).join("");
 
   // ---- gallery + lightbox
-  if (B.photos.length) { $("photos").hidden = false; $("nav-watch").insertAdjacentHTML("afterend", '<a href="#photos">Photos</a>'); }
+  if (B.photos.length) $("photos").hidden = false;
   if (B.groupPhoto) { $("group").hidden = false; $("group").innerHTML = `<img src="${B.groupPhoto}" alt="3rd Power Family Soul" loading="lazy">`; }
   if (B.story) { const q = $("story"); q.hidden = false; q.innerHTML = `<p>${esc(B.story)}</p>${B.signoff ? `<footer>— ${esc(B.signoff)}</footer>` : ""}`; }
   // videos (click-to-load: fast, and no tracking until played)
@@ -110,8 +110,19 @@
   lb.querySelector("button").addEventListener("click", closeLb);
   document.addEventListener("keydown", (e) => { if (e.key !== "Escape") return; if (!lb.hidden) closeLb(); if ($("menu").classList.contains("open")) document.querySelector(".menu-btn").click(); });
 
+  // ---- songs
+  const sl = $("songs-list"), sc = $("song-count"), sm = $("songs-more");
+  const drawSongs = (q) => { const t = q.trim().toLowerCase(); const f = B.songs.filter((x) => x.toLowerCase().includes(t));
+    sl.innerHTML = f.map((x) => `<span>${esc(x)}</span>`).join("") || `<p class="sub">Not on our list yet — but ask! We take requests.</p>`;
+    sc.textContent = t ? `${f.length} match${f.length === 1 ? "" : "es"}` : `${B.songs.length} songs`; sl.classList.toggle("collapsed", !t && !sm.dataset.open); sm.hidden = !!t; };
+  sm.onclick = () => { sm.dataset.open = sm.dataset.open ? "" : "1"; sm.textContent = sm.dataset.open ? "Show fewer songs" : "Show all songs"; drawSongs($("song-search").value); };
+  $("song-search").addEventListener("input", (e) => drawSongs(e.target.value));
+  $("songs-note").textContent = B.songsNote; drawSongs("");
+  $("community-list").innerHTML = B.community.map((c) => `<li><span>${esc(c)}</span></li>`).join("");
+
   // ---- members, faq, contact
-  $("members").innerHTML = B.members.map((m, i) => `<li class="reveal d${i % 4}"><div class="avatar">${esc(m.name.trim()[0])}</div><b>${esc(m.name)}</b><span>${esc(m.role)}</span></li>`).join("");
+  $("members").innerHTML = B.members.map((m, i) => `<li class="reveal d${i % 4}"><div class="avatar">${esc(m.name.trim()[0])}</div><b>${esc(m.name)}</b>${m.nick ? `<em class="nick">“${esc(m.nick)}”</em>` : ""}<span>${esc(m.role)}</span>${m.bio ? `<details><summary>Read bio</summary><p>${esc(m.bio)}</p>${m.quote ? `<blockquote>“${esc(m.quote)}”</blockquote>` : ""}</details>` : ""}</li>`).join("");
+  $("members").addEventListener("toggle", (e) => { const li = e.target.closest("li"); if (li) li.classList.toggle("wide", e.target.open); }, true);
   $("faq-list").innerHTML = B.faq.map((f) => `<details class="reveal"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("");
   $("book-contact").innerHTML = `<li>✉ <a href="mailto:${B.email}">${esc(B.email)}</a></li><li>☎ <a href="tel:${B.phone.replace(/\D/g, "")}">${esc(B.phone)}</a></li><li>⌖ Lancaster, PA</li>`;
   $("contact").innerHTML = `<a href="${B.facebook}" target="_blank" rel="noopener">Facebook</a><a href="${B.facebook2}" target="_blank" rel="noopener">Events</a><a href="${B.youtube}" target="_blank" rel="noopener">YouTube</a><a href="tel:${B.phone.replace(/\D/g, "")}">${esc(B.phone)}</a>`;

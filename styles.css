@@ -286,3 +286,26 @@ main:focus{outline:none}
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s;z-index:45}
 @media(max-width:860px){.menu-open .scrim{opacity:1;pointer-events:auto}.menu-open{overflow:hidden}}
 @media(min-width:861px){.scrim{display:none}}
+
+/* songs, members, community */
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.song-tools{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1.2rem}
+.song-tools input{flex:1;min-width:14rem;max-width:26rem;padding:.9rem 1rem}
+.song-count{color:var(--mute);font-size:.9rem}
+.songs{display:flex;flex-wrap:wrap;gap:.55rem;position:relative}
+.songs span{border:1px solid var(--line);padding:.4rem .95rem;border-radius:999px;font-size:.92rem;background:#ffffff05}
+.songs.collapsed{max-height:9.5rem;overflow:hidden}
+.songs.collapsed::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4rem;background:linear-gradient(#0000,var(--bg2));pointer-events:none}
+.songs-more{margin-top:1.2rem}
+.fine{color:var(--mute);font-size:.8rem;margin:1rem 0 0}
+.members{align-items:start}
+.members .nick{display:block;font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.05rem;margin-top:.1rem}
+.members details{margin-top:.8rem;text-align:left}
+.members summary{cursor:pointer;color:var(--gold);font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase;text-align:center;list-style:none}
+.members summary::-webkit-details-marker{display:none}
+.members details p{color:#d8d2c6;font-size:.95rem;margin:.8rem 0 0;line-height:1.6}
+.members blockquote{margin:.8rem 0 0;padding-left:.8rem;border-left:2px solid var(--gold);font-family:var(--serif);font-style:italic;font-size:1.2rem}
+.members li.wide{grid-column:1/-1;text-align:left}
+.members li.wide .avatar{margin-left:0}
+#community-list{list-style:none;padding:0;margin:1.6rem 0 0}
+#community-list li span{display:block;border:1px solid var(--line);padding:.6rem 1.3rem;border-radius:999px;font-family:var(--serif);font-size:1.2rem;background:#ffffff05}
