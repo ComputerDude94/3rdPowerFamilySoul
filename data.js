@@ -6,21 +6,21 @@ window.BAND = {
   name: "3rd Power Family Soul",
   tagline: "Lancaster, PA's feel-good soul band",
   about:
-    "PLACEHOLDER: Write 2-3 sentences about the band here — your sound, your story, who is in the group, and the kinds of events you play (weddings, festivals, bars, private parties).",
+    "3rd Power Family Soul is a high-energy, interactive cover band from Lancaster, PA. They play feel-good funk, soul, R&B, jazz, rock 'n' roll and disco — from Kool & the Gang and James Brown to Chaka Khan, Parliament Funkadelic and The Rolling Stones — with lively crowd participation and spirited performances. Regulars around Lancaster County, including Honey Brook's Concerts in the Park, Dirty Ol' Tavern, Stoner Grille and McCleary's Public House.",
   // Where booking requests are emailed. REPLACE with the band's real email.
-  email: "booking@example.com",
-  phone: "(717) 555-0123",
+  email: "booking@example.com" /* TODO: your message was cut off before the email — replace */,
+  phone: "(717) 598-5441",
   facebook: "https://www.facebook.com/share/1FxFtpkFde/",
   facebook2: "https://www.facebook.com/share/1NRHupTZME/",
   // Optional: paste a Formspree/Getform URL here to receive bookings by form
   // instead of the visitor's email app. Leave "" to use email.
   formEndpoint: "",
   members: [
-    { name: "Member Name", role: "Lead Vocals" },
-    { name: "Member Name", role: "Guitar" },
-    { name: "Member Name", role: "Bass" },
-    { name: "Member Name", role: "Drums" },
-    { name: "Member Name", role: "Keys" }
+    { name: "Diane Yates", role: "Lead Vocals" },
+    { name: "Efrem Yates", role: "Lead Guitar" },
+    { name: "Mike Smith", role: "Bass Guitar (Founder)" },
+    { name: "Bill Leporte", role: "Keyboards" },
+    { name: "Derrick Wright", role: "Drums" }
   ],
   // Photos: drop image files in /images and list them here.
   // Entries starting with "images/placeholder" are stand-ins.
