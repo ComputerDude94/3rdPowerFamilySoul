@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3rd Power Family Soul | Soul Band in Lancaster, PA</title>
+  <meta name="description" content="3rd Power Family Soul — live soul band from Lancaster, PA. See upcoming shows, check open dates, and book the band for your event.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <a href="#top" class="logo">3rd Power <span>Family Soul</span></a>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+    <nav id="menu">
+      <a href="#shows">Shows</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#photos">Photos</a>
+      <a href="#about">About</a>
+      <a href="#book" class="btn small">Book Us</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Lancaster, Pennsylvania</p>
+        <h1>3rd Power<br>Family Soul</h1>
+        <p class="lead">Live soul, funk &amp; groove for weddings, festivals, venues and private parties.</p>
+        <div class="cta">
+          <a href="#book" class="btn">Book the Band</a>
+          <a href="#shows" class="btn ghost">See Upcoming Shows</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="shows" class="wrap">
+      <h2>Catch Us Live</h2>
+      <div id="show-list" class="show-list"></div>
+    </section>
+
+    <section id="calendar" class="wrap alt">
+      <h2>Calendar &amp; Open Dates</h2>
+      <p class="sub">Tap a green date to start a booking request.</p>
+      <div class="legend">
+        <span><i class="dot open"></i> Open</span>
+        <span><i class="dot show"></i> Public show</span>
+        <span><i class="dot booked"></i> Booked</span>
+      </div>
+      <div class="cal">
+        <div class="cal-head">
+          <button id="prev" aria-label="Previous month">&#8249;</button>
+          <h3 id="cal-title"></h3>
+          <button id="next" aria-label="Next month">&#8250;</button>
+        </div>
+        <div class="cal-grid dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div id="cal-days" class="cal-grid"></div>
+      </div>
+    </section>
+
+    <section id="photos" class="wrap">
+      <h2>Portraits</h2>
+      <div id="gallery" class="gallery"></div>
+    </section>
+
+    <section id="about" class="wrap alt">
+      <h2>The Band</h2>
+      <p id="about-text" class="about"></p>
+      <ul id="members" class="members"></ul>
+    </section>
+
+    <section id="book" class="wrap">
+      <h2>Book 3rd Power Family Soul</h2>
+      <p class="sub">Tell us about your event and we'll reply with availability and a quote.</p>
+      <form id="book-form" class="form">
+        <label>Your name<input name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Phone<input type="tel" name="phone"></label>
+        <label>Event date<input type="date" name="date" id="date" required></label>
+        <p id="date-status" class="status" aria-live="polite"></p>
+        <label>Event type
+          <select name="type">
+            <option>Wedding</option><option>Private party</option><option>Corporate event</option>
+            <option>Festival / community event</option><option>Bar / venue</option><option>Other</option>
+          </select>
+        </label>
+        <label>Venue &amp; city<input name="venue"></label>
+        <label>Start time &amp; length<input name="time" placeholder="e.g. 7 PM, 3 hours"></label>
+        <label class="full">Details<textarea name="message" rows="4" placeholder="Guest count, music requests, anything else..."></textarea></label>
+        <button class="btn full" type="submit">Send Booking Request</button>
+        <p id="form-msg" class="status full" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="yr"></span> 3rd Power Family Soul · Lancaster, PA</p>
+    <p id="contact"></p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
