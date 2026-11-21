@@ -282,3 +282,7 @@ main:focus{outline:none}
 .show-card .d em{display:block;font-style:normal;font-size:.68rem;letter-spacing:2px;color:var(--mute);margin-top:.2rem}
 .next.pending{visibility:hidden}
 .next{min-height:2.4rem}
+
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .3s;z-index:45}
+@media(max-width:860px){.menu-open .scrim{opacity:1;pointer-events:auto}.menu-open{overflow:hidden}}
+@media(min-width:861px){.scrim{display:none}}

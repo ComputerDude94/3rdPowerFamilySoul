@@ -126,8 +126,11 @@
   };
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
   const btn = document.querySelector(".menu-btn"), menu = $("menu");
-  btn.onclick = () => { const o = menu.classList.toggle("open"); btn.setAttribute("aria-expanded", o); document.body.classList.toggle("menu-open", o); };
-  menu.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", false); document.body.classList.remove("menu-open"); });
+  const setMenu = (o) => { menu.classList.toggle("open", o); btn.setAttribute("aria-expanded", o); document.body.classList.toggle("menu-open", o); };
+  btn.onclick = () => setMenu(!menu.classList.contains("open"));
+  menu.addEventListener("click", () => setMenu(false));
+  $("scrim").addEventListener("click", () => setMenu(false));
+  document.addEventListener("click", (e) => { if (menu.classList.contains("open") && !menu.contains(e.target) && !btn.contains(e.target)) setMenu(false); });
 
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return;
