@@ -62,6 +62,7 @@
       h += `<button type="button" class="day ${st}${k < todayKey ? " past" : ""}${k === todayKey ? " today" : ""}${k === selected ? " sel" : ""}" data-k="${k}" ${st === "open" || st === "show" ? "" : "tabindex='-1'"} aria-label="${pretty(k)}${st ? " " + st : ""}">${d}</button>`;
     }
     $("cal-days").innerHTML = h;
+    $("prev").disabled = view.getFullYear() === today.getFullYear() && view.getMonth() === today.getMonth();
   }
   $("prev").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); };
   $("next").onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); };
@@ -92,14 +93,16 @@
 
   // ---- nav, progress, reveal, counters
   const nav = $("nav"), prog = $("progress");
+  const revealVisible = () => document.querySelectorAll(".reveal:not(.in)").forEach((e) => { if (e.getBoundingClientRect().top < innerHeight * 0.98) e.classList.add("in"); });
   const onScroll = () => {
+    revealVisible();
     nav.classList.toggle("scrolled", scrollY > 30);
     prog.style.width = (scrollY / (document.documentElement.scrollHeight - innerHeight)) * 100 + "%";
   };
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
   const btn = document.querySelector(".menu-btn"), menu = $("menu");
-  btn.onclick = () => { const o = menu.classList.toggle("open"); btn.setAttribute("aria-expanded", o); };
-  menu.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", false); });
+  btn.onclick = () => { const o = menu.classList.toggle("open"); btn.setAttribute("aria-expanded", o); document.body.classList.toggle("menu-open", o); };
+  menu.addEventListener("click", () => { menu.classList.remove("open"); btn.setAttribute("aria-expanded", false); document.body.classList.remove("menu-open"); });
 
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     if (!e.isIntersecting) return;
