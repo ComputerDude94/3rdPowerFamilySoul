@@ -202,3 +202,18 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
   .quickbar .main{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#14110a;border:0}
   #hero-call{display:none}
 }
+/* mobile hero polish */
+@media(max-width:860px){
+  .hero{padding:5.6rem 0 6.5rem;min-height:auto}
+  .hero-art{order:-1;gap:.9rem;margin-bottom:.6rem}
+  .record{width:min(11.5rem,46vw)}
+  .eq{height:1.8rem}.eq i{width:4px}
+  .eyebrow{letter-spacing:2.5px;font-size:.68rem}
+  h1{font-size:clamp(3rem,15vw,4.2rem)}
+  .lead{font-size:1rem;margin:1rem 0 1.4rem}
+  .cta{flex-direction:column;gap:.7rem}
+  .cta .btn{width:100%;text-align:center}
+  .next{margin-top:1.4rem;font-size:.8rem;line-height:1.35;border-radius:14px;width:100%}
+  .scroll{display:none}
+  footer{padding-bottom:6.5rem}
+}
