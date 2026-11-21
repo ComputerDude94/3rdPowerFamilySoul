@@ -3,16 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>3rd Power Family Soul | Soul Band in Lancaster, PA</title>
-  <meta name="description" content="3rd Power Family Soul — live soul band from Lancaster, PA. See upcoming shows, check open dates, and book the band for your event.">
-  <meta name="theme-color" content="#0d0e12">
+  <title>3rd Power Family Soul | Live Funk &amp; Soul Band — Lancaster, PA</title>
+  <meta name="description" content="3rd Power Family Soul — high-energy funk, soul, R&B, jazz, rock and disco band from Lancaster, PA. See upcoming shows, check open dates and book the band.">
+  <meta name="theme-color" content="#0b0c10">
+  <meta property="og:title" content="3rd Power Family Soul — Lancaster, PA">
+  <meta property="og:description" content="Live funk, soul &amp; disco. See shows, check open dates, book the band.">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"MusicGroup","name":"3rd Power Family Soul","genre":["Funk","Soul","R&B","Jazz","Rock","Disco"],
    "description":"High-energy, interactive cover band from Lancaster, PA playing funk, soul, R&B, jazz, rock and disco for weddings, festivals, venues and private events.",
-   "url":"https://3rd-power-family-soul.pages.dev/","telephone":"+1-717-598-5441",
+   "url":"https://3rd-power-family-soul.thetoptenfotography.workers.dev/","telephone":"+1-717-598-5441",
    "address":{"@type":"PostalAddress","addressLocality":"Lancaster","addressRegion":"PA","addressCountry":"US"},
    "areaServed":"Lancaster County, Pennsylvania",
    "sameAs":["https://www.facebook.com/share/1FxFtpkFde/","https://www.facebook.com/share/1NRHupTZME/"],
@@ -24,94 +27,168 @@
   </script>
 </head>
 <body>
-  <header class="nav">
+  <div class="progress" id="progress"></div>
+
+  <header class="nav" id="nav">
     <a href="#top" class="logo">3rd Power <span>Family Soul</span></a>
-    <button class="menu-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+    <button class="menu-btn" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
     <nav id="menu">
       <a href="#shows">Shows</a>
-      <a href="#calendar">Calendar</a>
+      <a href="#calendar">Open Dates</a>
+      <a href="#sound">Sound</a>
       <a href="#photos">Photos</a>
-      <a href="#about">About</a>
+      <a href="#band">Band</a>
       <a href="#book" class="btn small">Book Us</a>
     </nav>
   </header>
 
   <main id="top">
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-inner">
-        <p class="eyebrow">Lancaster, Pennsylvania</p>
-        <h1>3rd Power<br>Family Soul</h1>
-        <p class="lead">Funk, soul, R&amp;B, jazz, rock &amp; disco — live and interactive, for weddings, festivals, venues and private parties.</p>
-        <div class="cta">
-          <a href="#book" class="btn">Book the Band</a>
-          <a href="#shows" class="btn ghost">See Upcoming Shows</a>
+      <div class="glow g1"></div><div class="glow g2"></div>
+      <div class="hero-grid wrap-wide">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Lancaster, Pennsylvania · Live Band</p>
+          <h1 class="reveal d1">Funk. Soul.<br><em>Family.</em></h1>
+          <p class="lead reveal d2" id="hero-lead"></p>
+          <div class="cta reveal d3">
+            <a href="#book" class="btn">Book the Band</a>
+            <a href="#shows" class="btn ghost">See Live Dates</a>
+          </div>
+          <a href="#shows" class="next reveal d4" id="next-show" hidden>
+            <span class="pulse"></span>
+            <span id="next-text"></span>
+          </a>
+        </div>
+        <div class="hero-art reveal d2" aria-hidden="true">
+          <div class="record"><div class="label"><b>3rd</b><span>POWER</span></div></div>
+          <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
         </div>
       </div>
+      <a href="#shows" class="scroll" aria-label="Scroll down"><span></span></a>
     </section>
 
-    <section id="shows" class="wrap">
-      <h2>Catch Us Live</h2>
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+    <!-- STATS -->
+    <section class="stats wrap-wide">
+      <div class="stat reveal"><b data-count="5">0</b><span>Musicians</span></div>
+      <div class="stat reveal d1"><b data-count="6">0</b><span>Genres</span></div>
+      <div class="stat reveal d2"><b>LIVE</b><span>&amp; Interactive</span></div>
+      <div class="stat reveal d3"><b>PA</b><span>Lancaster County</span></div>
+    </section>
+
+    <!-- SHOWS -->
+    <section id="shows" class="sec wrap">
+      <div class="head reveal"><p class="eyebrow">On Stage</p><h2>Catch Us Live</h2></div>
       <div id="show-list" class="show-list"></div>
     </section>
 
-    <section id="calendar" class="wrap alt">
-      <h2>Calendar &amp; Open Dates</h2>
-      <p class="sub">Tap a green date to start a booking request.</p>
-      <div class="legend">
-        <span><i class="dot open"></i> Open</span>
-        <span><i class="dot show"></i> Public show</span>
-        <span><i class="dot booked"></i> Booked</span>
-      </div>
-      <div class="cal">
-        <div class="cal-head">
-          <button id="prev" aria-label="Previous month">&#8249;</button>
-          <h3 id="cal-title"></h3>
-          <button id="next" aria-label="Next month">&#8250;</button>
+    <!-- CALENDAR -->
+    <section id="calendar" class="sec alt">
+      <div class="wrap cal-wrap">
+        <div class="cal-intro reveal">
+          <p class="eyebrow">Availability</p>
+          <h2>Find Your Date</h2>
+          <p class="sub">Green dates are open. Tap one and we'll start your booking request.</p>
+          <div class="legend">
+            <span><i class="dot open"></i> Open</span>
+            <span><i class="dot show"></i> Public show</span>
+            <span><i class="dot booked"></i> Booked</span>
+          </div>
+          <div class="pick" id="pick">Pick a date on the calendar.</div>
+          <a href="#book" class="btn">Request This Date</a>
         </div>
-        <div class="cal-grid dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
-        <div id="cal-days" class="cal-grid"></div>
+        <div class="cal reveal d1">
+          <div class="cal-head">
+            <button id="prev" aria-label="Previous month">&#8249;</button>
+            <h3 id="cal-title"></h3>
+            <button id="next" aria-label="Next month">&#8250;</button>
+          </div>
+          <div class="cal-grid dow"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+          <div id="cal-days" class="cal-grid"></div>
+        </div>
       </div>
     </section>
 
-    <section id="photos" class="wrap">
-      <h2>Portraits</h2>
-      <div id="gallery" class="gallery"></div>
+    <!-- SOUND -->
+    <section id="sound" class="sec wrap">
+      <div class="head reveal"><p class="eyebrow">The Sound</p><h2>Grooves You Know &amp; Love</h2></div>
+      <div class="chips reveal" id="genres"></div>
+      <div class="types" id="types"></div>
     </section>
 
-    <section id="about" class="wrap alt">
-      <h2>The Band</h2>
-      <p id="about-text" class="about"></p>
+    <!-- PHOTOS -->
+    <section id="photos" class="sec alt">
+      <div class="wrap">
+        <div class="head reveal"><p class="eyebrow">Gallery</p><h2>Portraits</h2></div>
+        <div id="gallery" class="gallery"></div>
+      </div>
+    </section>
+
+    <!-- BAND -->
+    <section id="band" class="sec wrap">
+      <div class="head reveal"><p class="eyebrow">Meet the Group</p><h2>The Band</h2></div>
+      <p id="about-text" class="about reveal"></p>
       <ul id="members" class="members"></ul>
     </section>
 
-    <section id="book" class="wrap">
-      <h2>Book 3rd Power Family Soul</h2>
-      <p class="sub">Tell us about your event and we'll reply with availability and a quote.</p>
-      <form id="book-form" class="form">
-        <label>Your name<input name="name" required></label>
-        <label>Email<input type="email" name="email" required></label>
-        <label>Phone<input type="tel" name="phone"></label>
-        <label>Event date<input type="date" name="date" id="date" required></label>
-        <p id="date-status" class="status" aria-live="polite"></p>
-        <label>Event type
-          <select name="type">
-            <option>Wedding</option><option>Private party</option><option>Corporate event</option>
-            <option>Festival / community event</option><option>Bar / venue</option><option>Other</option>
-          </select>
-        </label>
-        <label>Venue &amp; city<input name="venue"></label>
-        <label>Start time &amp; length<input name="time" placeholder="e.g. 7 PM, 3 hours"></label>
-        <label class="full">Details<textarea name="message" rows="4" placeholder="Guest count, music requests, anything else..."></textarea></label>
-        <button class="btn full" type="submit">Send Booking Request</button>
-        <p id="form-msg" class="status full" aria-live="polite"></p>
-      </form>
+    <!-- BOOK -->
+    <section id="book" class="sec alt">
+      <div class="wrap book-wrap">
+        <div class="book-intro reveal">
+          <p class="eyebrow">Book the Band</p>
+          <h2>Let's Make Your Night</h2>
+          <p class="sub">Three quick steps. We'll reply with availability and a quote.</p>
+          <ul class="contact-list" id="book-contact"></ul>
+        </div>
+        <form id="book-form" class="form reveal d1" novalidate>
+          <div class="steps"><span class="on">1 Date</span><span>2 Event</span><span>3 You</span></div>
+          <div class="step on" data-step="1">
+            <label>Event date<input type="date" name="date" id="date" required></label>
+            <p id="date-status" class="status" aria-live="polite"></p>
+            <label>Event type
+              <select name="type"><option>Wedding</option><option>Private party</option><option>Corporate event</option><option>Festival / community event</option><option>Bar / venue</option><option>Other</option></select>
+            </label>
+          </div>
+          <div class="step" data-step="2">
+            <label>Venue &amp; city<input name="venue" placeholder="Where is the event?"></label>
+            <label>Start time &amp; length<input name="time" placeholder="e.g. 7 PM, 3 hours"></label>
+            <label>Details &amp; song requests<textarea name="message" rows="4" placeholder="Guest count, must-play songs, anything else..."></textarea></label>
+          </div>
+          <div class="step" data-step="3">
+            <label>Your name<input name="name" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Phone<input type="tel" name="phone"></label>
+          </div>
+          <div class="nav-btns">
+            <button type="button" class="btn ghost" id="back" hidden>Back</button>
+            <button type="button" class="btn" id="nextstep">Next</button>
+            <button type="submit" class="btn" id="send" hidden>Send Request</button>
+          </div>
+          <p id="form-msg" class="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="sec wrap narrow">
+      <div class="head reveal"><p class="eyebrow">Good to Know</p><h2>Questions</h2></div>
+      <div id="faq-list" class="faq"></div>
     </section>
   </main>
 
   <footer>
-    <p>&copy; <span id="yr"></span> 3rd Power Family Soul · Lancaster, PA</p>
-    <p id="contact"></p>
+    <div class="foot wrap-wide">
+      <div><a href="#top" class="logo">3rd Power <span>Family Soul</span></a><p>Funk, soul &amp; disco — Lancaster, PA</p></div>
+      <div id="contact" class="foot-links"></div>
+    </div>
+    <p class="copy">&copy; <span id="yr"></span> 3rd Power Family Soul</p>
   </footer>
+
+  <a href="#book" class="sticky-cta">Book the Band</a>
+  <div class="lightbox" id="lightbox" hidden><button aria-label="Close">&times;</button><img alt=""></div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>

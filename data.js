@@ -15,6 +15,22 @@ window.BAND = {
   // Optional: paste a Formspree/Getform URL here to receive bookings by form
   // instead of the visitor's email app. Leave "" to use email.
   formEndpoint: "",
+  youtube: "https://www.youtube.com/results?search_query=3rd+Power+Family+Soul",
+  artists: ["Kool & the Gang","James Brown","Chaka Khan","Parliament Funkadelic","The Rolling Stones"],
+  genres: ["Funk","Soul","R&B","Jazz","Rock 'n' Roll","Disco"],
+  eventTypes: [
+    { icon: "♥", title: "Weddings", text: "Keep the dance floor full from the first dance to the last song." },
+    { icon: "★", title: "Festivals & Parks", text: "Big, interactive crowd energy for community concerts and outdoor events." },
+    { icon: "♪", title: "Bars & Venues", text: "A feel-good night of classic grooves your regulars will come back for." },
+    { icon: "◆", title: "Private & Corporate", text: "Birthdays, anniversaries, fundraisers and company parties." }
+  ],
+  // EDIT these answers to match how the band really works.
+  faq: [
+    { q: "How far ahead should we book?", a: "As early as you can — green dates on the calendar are open, and weekends go first. Send a request and we'll confirm quickly." },
+    { q: "Where do you play?", a: "Lancaster County and surrounding Pennsylvania communities. Playing farther out? Just ask." },
+    { q: "What kind of music do you play?", a: "Funk, soul, R&B, jazz, rock 'n' roll and disco covers — Kool & the Gang, James Brown, Chaka Khan, Parliament Funkadelic, The Rolling Stones and more." },
+    { q: "Can we request songs?", a: "Absolutely. Add requests in the booking form and we'll build the night around your crowd." }
+  ],
   members: [
     { name: "Diane Yates", role: "Lead Vocals" },
     { name: "Efrem Yates", role: "Lead Guitar" },
