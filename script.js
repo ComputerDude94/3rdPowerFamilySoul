@@ -171,9 +171,6 @@
   // ---- visibility: call/text links, share, event structured data
   const tel = B.phone.replace(/\D/g, "");
   ["qcall", "hero-call"].forEach((id) => { const a = $(id); if (a) a.href = "tel:" + tel; });
-  const qb = document.querySelector(".quickbar"), hide = new Set();
-  const qio = new IntersectionObserver((es) => { es.forEach((e) => (e.isIntersecting ? hide.add(e.target.id || "f") : hide.delete(e.target.id || "f"))); qb.classList.toggle("off", hide.size > 0); }, { threshold: 0, rootMargin: "-35% 0px -35% 0px" });
-  qio.observe($("book")); qio.observe(document.querySelector("footer"));
   $("follow-fb").href = B.facebook; $("follow-yt").href = B.youtube;
   $("qtext").href = "sms:" + tel;
   const sh = document.createElement("button"); sh.className = "share"; sh.textContent = "Share this page";
