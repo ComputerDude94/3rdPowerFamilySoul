@@ -17,7 +17,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"MusicGroup","name":"3rd Power Family Soul","genre":["Funk","Soul","R&B","Jazz","Rock","Disco"],
@@ -43,7 +43,7 @@
     <button class="menu-btn" aria-label="Menu" aria-controls="menu" aria-expanded="false"><i></i><i></i></button>
     <nav id="menu">
       <a href="#shows">Shows</a>
-      <a href="#calendar">Open Dates</a>
+      <a href="#calendar">Calendar</a>
       <a href="#watch" id="nav-watch">Watch</a>
       <a href="#band">Band</a>
       <a href="#book" class="btn small">Book Us</a>
@@ -58,15 +58,15 @@
         <div class="hero-copy">
           <p class="eyebrow reveal">Lancaster, Pennsylvania · Live Band</p>
           <h1 class="reveal d1">Funk. Soul.<br><em>Family.</em></h1>
-          <p class="lead reveal d2" id="hero-lead"></p>
+          <p class="lead reveal d2" id="hero-lead">Funk, soul, R&amp;B, jazz, rock &amp; disco — live, interactive and built to fill the dance floor in Lancaster County and beyond.</p>
           <div class="cta reveal d3">
             <a href="#book" class="btn">Book the Band</a>
             <a href="#shows" class="btn ghost">See Live Dates</a>
             <a href="#" id="hero-call" class="btn ghost">Call Us</a>
           </div>
-          <a href="#shows" class="next reveal d4" id="next-show" hidden>
+          <a href="#shows" class="next pending reveal d4" id="next-show"><!-- text filled in by script -->
             <span class="pulse"></span>
-            <span id="next-text"></span>
+            <span id="next-text">Next show: see schedule below</span>
           </a>
         </div>
         <div class="hero-art reveal d2" aria-hidden="true">
@@ -82,9 +82,9 @@
 
     <!-- SHOWS -->
     <section id="shows" class="sec wrap">
-      <div class="head reveal"><p class="eyebrow">On Stage</p><h2>Catch Us Live</h2></div>
+      <div class="head reveal"><p class="eyebrow">On Stage</p><h2 id="shows-title">Catch Us Live</h2></div>
       <div id="show-list" class="show-list"></div>
-      <p class="follow reveal">Never miss a show — <a id="follow-fb" target="_blank" rel="noopener">follow us on Facebook</a> · <a id="follow-yt" target="_blank" rel="noopener">watch on YouTube</a></p>
+      <p class="follow reveal"><a id="all-ics" class="pill">+ Add all shows to my calendar</a> Never miss a show — <a id="follow-fb" target="_blank" rel="noopener">follow us on Facebook</a> · <a id="follow-yt" target="_blank" rel="noopener">watch on YouTube</a></p>
     </section>
 
     <!-- WATCH -->
@@ -100,9 +100,9 @@
     <section id="calendar" class="sec alt">
       <div class="wrap cal-wrap">
         <div class="cal-intro reveal">
-          <p class="eyebrow">Availability</p>
-          <h2>Find Your Date</h2>
-          <p class="sub">Green dates are open. Tap one and we'll start your booking request.</p>
+          <p class="eyebrow">Shows &amp; Availability</p>
+          <h2>Calendar</h2>
+          <p class="sub">Gold dates are our shows — tap one for details. Green dates are open: tap one to start a booking request.</p>
           <div class="legend">
             <span><i class="dot open"></i> Open</span>
             <span><i class="dot show"></i> Public show</span>

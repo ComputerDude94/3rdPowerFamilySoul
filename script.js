@@ -16,7 +16,6 @@
   const statusOf = (k) => (showsByDate[k] ? "show" : booked.has(k) ? "booked" : open.has(k) || (B.openByDefault && k >= todayKey) ? "open" : "");
 
   // ---- hero / text
-  $("hero-lead").textContent = "Funk, soul, R&B, jazz, rock & disco — live, interactive and built to fill the dance floor in Lancaster County and beyond.";
   $("about-text").textContent = B.about;
   $("yr").textContent = today.getFullYear();
 
@@ -30,9 +29,10 @@
   if (upcoming.length) {
     const n = upcoming[0], days = Math.round((parse(n.date) - parse(todayKey)) / 864e5);
     $("next-text").textContent = `Next show: ${MONTHS[parse(n.date).getMonth()].slice(0, 3)} ${parse(n.date).getDate()} · ${n.venue}` + (days === 0 ? " — TONIGHT" : days === 1 ? " — tomorrow" : ` — in ${days} days`);
-    $("next-show").hidden = false;
+    $("next-show").classList.remove("pending");
   }
 
+  if (!upcoming.length) $("next-show").style.display = "none";
   // ---- shows
   function ics(s) {
     const d = s.date.replace(/-/g, ""), st = (s.start || "00:00").replace(":", "") + "00", en = (s.end || "23:59").replace(":", "") + "00";
@@ -43,14 +43,21 @@
     ? upcoming.map((s) => {
         const d = parse(s.date);
         const map = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(s.venue + " " + (s.city || "PA"));
-        return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b></div>
+        return `<article class="show-card reveal"><div class="d"><small>${MONTHS[d.getMonth()].slice(0, 3).toUpperCase()}</small><b>${d.getDate()}</b><em>${d.getFullYear()}</em></div>
           <div><h3>${esc(s.venue)}</h3><p>${[DAYS[d.getDay()], esc(s.time), esc(s.city), esc(s.note)].filter(Boolean).join(" · ")}</p></div>
           <div class="show-actions"><a class="pill" href="${map}" target="_blank" rel="noopener">Directions</a><a class="pill" href="${ics(s)}" download="3rd-power-${s.date}.ics">+ Calendar</a></div></article>`;
       }).join("")
     : "<p class='sub'>New shows coming soon — follow us on Facebook for updates.</p>";
 
+  const years = [...new Set(upcoming.map((x) => parse(x.date).getFullYear()))];
+  if (upcoming.length && years.length <= 2) $("shows-title").textContent = years.join(" & ") + " Schedule";
+  const evt = (x) => ["BEGIN:VEVENT", `UID:${x.date}-3rdpower@band`, `DTSTART:${x.date.replace(/-/g, "")}T${(x.start || "00:00").replace(":", "")}00`, `DTEND:${x.date.replace(/-/g, "")}T${(x.end || "23:59").replace(":", "")}00`, `SUMMARY:3rd Power Family Soul @ ${x.venue}`, `LOCATION:${x.venue}${x.city ? ", " + x.city : ", PA"}`, "END:VEVENT"].join("\r\n");
+  $("all-ics").href = "data:text/calendar;charset=utf-8," + encodeURIComponent("BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//3rd Power Family Soul//EN\r\n" + upcoming.map(evt).join("\r\n") + "\r\nEND:VCALENDAR");
+  $("all-ics").download = "3rd-power-family-soul-schedule.ics";
+  if (!upcoming.length) $("all-ics").hidden = true;
+
   // ---- calendar
-  let view = new Date(today.getFullYear(), today.getMonth(), 1), selected = "";
+  let view = upcoming.length ? new Date(parse(upcoming[0].date).getFullYear(), parse(upcoming[0].date).getMonth(), 1) : new Date(today.getFullYear(), today.getMonth(), 1), selected = "";
   function render() {
     const y = view.getFullYear(), m = view.getMonth();
     $("cal-title").textContent = `${MONTHS[m]} ${y}`;
@@ -85,7 +92,7 @@
   if (B.videos.length) {
     $("watch").hidden = false;
     $("videos").className = "videos n" + B.videos.length;
-    $("videos").innerHTML = B.videos.map((v, i) => `<figure class="video reveal d${i}"><button type="button" class="vbtn" data-id="${esc(v.id)}" aria-label="Play video: ${esc(v.title)}" style="background-image:url(https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg)"><span class="play"></span></button><figcaption>${esc(v.title)}</figcaption></figure>`).join("");
+    $("videos").innerHTML = B.videos.map((v, i) => `<figure class="video reveal d${i}"><button type="button" class="vbtn" data-id="${esc(v.id)}" aria-label="Play video: ${esc(v.title)}"><img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async"><span class="play"></span></button><figcaption>${esc(v.title)}</figcaption></figure>`).join("");
     $("yt-more").href = B.youtube;
     $("videos").addEventListener("click", (e) => {
       const b = e.target.closest(".vbtn"); if (!b) return;
