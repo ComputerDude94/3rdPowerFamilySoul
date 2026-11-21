@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://3rd-power-family-soul.thetoptenfotography.workers.dev/sitemap.xml

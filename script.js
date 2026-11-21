@@ -146,4 +146,25 @@
     msg.className = "status ok"; msg.textContent = "Opening your email app to send the request…";
   });
   show(0);
+
+  // ---- visibility: call/text links, share, event structured data
+  const tel = B.phone.replace(/\D/g, "");
+  ["qcall", "hero-call"].forEach((id) => { const a = $(id); if (a) a.href = "tel:" + tel; });
+  $("qtext").href = "sms:" + tel;
+  const sh = document.createElement("button"); sh.className = "share"; sh.textContent = "Share this page";
+  sh.onclick = async () => {
+    const d = { title: document.title, text: "Check out 3rd Power Family Soul — live funk & soul in Lancaster, PA", url: location.href };
+    try { navigator.share ? await navigator.share(d) : (await navigator.clipboard.writeText(location.href), (sh.textContent = "Link copied ✓")); } catch (e) {}
+  };
+  $("contact").appendChild(sh);
+  if (upcoming.length) {
+    const ld = document.createElement("script"); ld.type = "application/ld+json";
+    ld.textContent = JSON.stringify(upcoming.map((s) => ({
+      "@context": "https://schema.org", "@type": "MusicEvent", name: "3rd Power Family Soul live at " + s.venue,
+      startDate: s.date, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      location: { "@type": "Place", name: s.venue, address: { "@type": "PostalAddress", addressLocality: s.city } },
+      performer: { "@type": "MusicGroup", name: "3rd Power Family Soul" }
+    })));
+    document.head.appendChild(ld);
+  }
 })();

@@ -188,3 +188,17 @@ footer{border-top:1px solid var(--line);padding:3rem 0 5rem;background:var(--bg2
   .sec,.sec.wrap{padding:4rem 1.4rem}.sec.alt{padding:4rem 0}
   .sticky-cta{display:block;position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:40;text-align:center;background:linear-gradient(135deg,var(--gold2),var(--gold));color:#14110a;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.8rem;padding:1rem;border-radius:3px;text-decoration:none;box-shadow:0 10px 30px #000a}
 }
+
+/* visibility & access */
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:#14110a;padding:.7rem 1rem;z-index:200}
+.skip:focus{left:0}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--gold2);outline-offset:3px}
+.quickbar{display:none}
+.share{background:none;border:1px solid var(--line);color:var(--text);border-radius:999px;padding:.4rem 1rem;cursor:pointer;font:500 .85rem var(--sans)}
+.share:hover{border-color:var(--gold);color:var(--gold)}
+@media(max-width:860px){
+  .quickbar{display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:.5rem;position:fixed;left:.8rem;right:.8rem;bottom:.8rem;z-index:40}
+  .quickbar .q{text-align:center;text-decoration:none;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:.78rem;padding:1rem .5rem;border-radius:3px;background:#12141af2;color:var(--text);border:1px solid var(--line);backdrop-filter:blur(8px)}
+  .quickbar .main{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#14110a;border:0}
+  #hero-call{display:none}
+}
