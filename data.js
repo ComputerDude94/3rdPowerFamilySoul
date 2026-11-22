@@ -16,10 +16,10 @@ window.BAND = {
   formEndpoint: "https://formsubmit.co/ajax/eyates717@comcast.net",
   genres: ["Funk", "Soul", "R&B", "Jazz", "Rock 'n' Roll", "Disco"],
   eventTypes: [
-    { icon: "♥", title: "Weddings", text: "Keep the dance floor full from the first dance to the last song." },
+    { icon: "♥", title: "Weddings & Receptions", text: "Keep the dance floor full from the first dance to the last song." },
     { icon: "★", title: "Festivals & Parks", text: "Big, interactive crowd energy for community concerts and outdoor events." },
-    { icon: "♪", title: "Bars & Venues", text: "A feel-good night of classic grooves your regulars will come back for." },
-    { icon: "◆", title: "Private & Corporate", text: "Birthdays, anniversaries, fundraisers and company parties." }
+    { icon: "♪", title: "Bars & Live Music Venues", text: "A feel-good night of classic grooves your regulars will come back for." },
+    { icon: "◆", title: "Private & Corporate Parties", text: "Birthdays, anniversaries, fundraisers and company parties." }
   ],
   faq: [
     { q: "How far ahead should we book?", a: "As early as you can — green dates on the calendar are open, and weekends go first. Send a request and we'll confirm quickly." },

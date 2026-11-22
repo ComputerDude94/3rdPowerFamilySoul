@@ -225,14 +225,4 @@
     try { navigator.share ? await navigator.share(d) : (await navigator.clipboard.writeText(location.href), (sh.textContent = "Link copied ✓")); } catch (e) {}
   };
   $("contact").appendChild(sh);
-  if (upcoming.length) {
-    const ld = document.createElement("script"); ld.type = "application/ld+json";
-    ld.textContent = JSON.stringify(upcoming.map((s) => ({
-      "@context": "https://schema.org", "@type": "MusicEvent", name: "3rd Power Family Soul live at " + s.venue,
-      startDate: s.date + (s.start ? "T" + s.start : ""), endDate: s.end ? s.date + "T" + s.end : undefined, eventStatus: "https://schema.org/EventScheduled", eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      location: { "@type": "Place", name: s.venue, address: { "@type": "PostalAddress", addressLocality: s.city || undefined, addressRegion: "PA", addressCountry: "US" } },
-      performer: { "@type": "MusicGroup", name: "3rd Power Family Soul" }
-    })));
-    document.head.appendChild(ld);
-  }
 })();

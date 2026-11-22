@@ -326,3 +326,4 @@ main:focus{outline:none}
 .modal-x{position:absolute;top:.5rem;right:.8rem;background:none;border:0;color:var(--text);font-size:2.2rem;line-height:1;cursor:pointer;width:2.8rem;height:2.8rem}
 .modal-open{overflow:hidden}
 @media(max-width:860px){.modal{place-items:end center;padding:0}.modal-panel{border-radius:14px 14px 0 0;max-height:85vh;padding-bottom:2.4rem}}
+.seo-intro{margin:0 0 2rem}.seo-intro a{font-weight:600}
